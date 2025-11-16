@@ -1,0 +1,24 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+<h2>📊 판매 실적</h2>
+
+<table>
+    <tr>
+        <th>회차</th>
+        <th>판매 수량</th>
+    </tr>
+
+    {% for item in sales %}
+    <tr>
+        <td>{{ item.round__round }} 회차</td>
+        <td>{{ item.total }} 장</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/admin-console/">← 관리자 대시보드로 돌아가기</a>
+
+{% endblock %}

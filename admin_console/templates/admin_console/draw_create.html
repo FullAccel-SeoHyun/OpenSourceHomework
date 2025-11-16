@@ -1,0 +1,27 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+<h2>💫 로또 추첨 생성</h2>
+{% if error %}
+    <p style="color: red; font-weight: bold; margin-bottom: 15px;">
+        ⚠️ {{ error }}
+    </p>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>회차 번호</label>
+    <input type="number" name="round" required><br><br>
+
+    <label>추첨 날짜</label>
+    <input type="date" name="date" required><br><br>
+
+    <button type="submit">당첨 번호 자동 생성 및 저장</button>
+</form>
+
+<br>
+<a href="/admin-console/">← 관리자 대시보드로 돌아가기</a>
+
+{% endblock %}

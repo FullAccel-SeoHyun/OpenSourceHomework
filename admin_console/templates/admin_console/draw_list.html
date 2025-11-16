@@ -1,0 +1,37 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+<h2>📋 추첨 목록</h2>
+
+<table style="border-collapse: separate; border-spacing: 12px 8px;">
+    <tr>
+        <th>회차</th>
+        <th>날짜</th>
+        <th>당첨번호</th>
+        <th>보너스</th>
+        <th>삭제</th>
+    </tr>
+
+    {% for d in draws %}
+    <tr>
+        <td>{{ d.round }}</td>
+        <td>{{ d.date }}</td>
+        <td>
+            {% for n in d.sorted_numbers %}
+                {{ n }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+        <td style="padding-left: 10px;">{{ d.bonus }}</td>
+        <td>
+            <form action="/admin-console/draws/delete/{{ d.id }}/" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="color:red;">삭제</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/admin-console/">← 관리자 대시보드로 돌아가기</a>
+{% endblock %}

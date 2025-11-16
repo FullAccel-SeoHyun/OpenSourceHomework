@@ -1,0 +1,36 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+
+{% load number_tags %}
+<h2>로또 수동 구매</h2>
+
+{% if error %}
+<p style="color:red">{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>회차 선택</label>
+    <select name="round">
+        {% for r in rounds %}
+        <option value="{{ r.round }}">{{ r.round }} 회차</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label>번호 선택 (6개):</label><br>
+    <div style="display:flex; flex-wrap:wrap; width:300px;">
+        {% for i in 1|to:45 %}
+        <label style="width:50px;">
+            <input type="checkbox" name="nums" value="{{ i }}"> {{ i }}
+        </label>
+        {% endfor %}
+    </div>
+
+    <br>
+    <button type="submit">구매하기</button>
+</form>
+
+{% endblock %}

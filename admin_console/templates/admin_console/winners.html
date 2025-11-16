@@ -1,0 +1,49 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+<h2>🏆 당첨자 조회</h2>
+
+<form method="GET">
+    <select name="round">
+        {% for r in rounds %}
+        <option value="{{ r.round }}" {% if selected_round == r.round|stringformat:"s" %}selected{% endif %}>
+            {{ r.round }} 회차
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">조회</button>
+</form>
+
+<hr>
+
+{% if winners %}
+    <h3>당첨자 목록</h3>
+    <table>
+        <tr>
+            <th>사용자</th>
+            <th>번호</th>
+            <th>등수</th>
+            <th>구매 시간</th>
+        </tr>
+
+        {% for ticket, rank in winners %}
+        <tr>
+            <td>{{ ticket.user.username }}</td>
+            <td>{{ ticket.n1 }}, {{ ticket.n2 }}, {{ ticket.n3 }}, {{ ticket.n4 }}, {{ ticket.n5 }}, {{ ticket.n6 }}</td>
+            <td>{{ rank }} 등</td>
+            <td>{{ ticket.bought_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    {% if selected_round %}
+        <p>이 회차에는 당첨자가 없습니다.</p>
+    {% endif %}
+{% endif %}
+
+<br>
+<a href="/admin-console/">← 관리자 대시보드로 돌아가기</a>
+
+{% endblock %}

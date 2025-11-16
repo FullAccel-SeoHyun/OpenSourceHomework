@@ -1,0 +1,107 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+<style>
+.num-match {
+    font-weight: bold;
+    color: green;
+}
+.num-bonus {
+    font-weight: bold;
+    color: orange;
+}
+.num-none {
+    color: #999;
+}
+</style>
+
+<h2>내 당첨 결과</h2>
+
+<form method="GET">
+    <select name="round">
+        {% for r in rounds %}
+        <option value="{{ r.round }}" {% if selected_round == r.round|stringformat:"s" %}selected{% endif %}>
+            {{ r.round }} 회차
+        </option>
+        {% endfor %}
+    </select>
+    <button type="submit">조회</button>
+</form>
+
+{% if results %}
+<hr>
+<h3>당첨 번호</h3>
+<p>
+    {% for num in winning_numbers %}
+        {{ num }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    <strong> + 보너스 {{ draw.bonus }}</strong>
+</p>
+<hr>
+<h3>결과</h3>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>번호</th>
+        <th>등수</th>
+    </tr>
+
+    {% for ticket, rank in results %}
+    <tr>
+        <td>
+            {% if ticket.n1 in winning_numbers %}
+                <span class="num-match">{{ ticket.n1 }}</span>
+            {% elif ticket.n1 == draw.bonus %}
+                <span class="num-bonus">{{ ticket.n1 }}</span>
+            {% else %}
+                <span class="num-none">{{ ticket.n1 }}</span>
+            {% endif %},
+            {% if ticket.n2 in winning_numbers %}
+                <span class="num-match">{{ ticket.n2 }}</span>
+            {% elif ticket.n2 == draw.bonus %}
+                <span class="num-bonus">{{ ticket.n2 }}</span>
+            {% else %}
+                <span class="num-none">{{ ticket.n2 }}</span>
+            {% endif %},
+            {% if ticket.n3 in winning_numbers %}
+                <span class="num-match">{{ ticket.n3 }}</span>
+            {% elif ticket.n3 == draw.bonus %}
+                <span class="num-bonus">{{ ticket.n3 }}</span>
+            {% else %}
+                <span class="num-none">{{ ticket.n3 }}</span>
+            {% endif %},
+            {% if ticket.n4 in winning_numbers %}
+                <span class="num-match">{{ ticket.n4 }}</span>
+            {% elif ticket.n4 == draw.bonus %}
+                <span class="num-bonus">{{ ticket.n4 }}</span>
+            {% else %}
+                <span class="num-none">{{ ticket.n4 }}</span>
+            {% endif %},
+            {% if ticket.n5 in winning_numbers %}
+                <span class="num-match">{{ ticket.n5 }}</span>
+            {% elif ticket.n5 == draw.bonus %}
+                <span class="num-bonus">{{ ticket.n5 }}</span>
+            {% else %}
+                <span class="num-none">{{ ticket.n5 }}</span>
+            {% endif %},
+            {% if ticket.n6 in winning_numbers %}
+                <span class="num-match">{{ ticket.n6 }}</span>
+            {% elif ticket.n6 == draw.bonus %}
+                <span class="num-bonus">{{ ticket.n6 }}</span>
+            {% else %}
+                <span class="num-none">{{ ticket.n6 }}</span>
+            {% endif %}
+        </td>
+        <td>
+            {% if rank > 0 %}
+            {{ rank }} 등
+            {% else %}
+            꽝
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
+{% endblock %}

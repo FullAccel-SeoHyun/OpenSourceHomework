@@ -1,0 +1,38 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+<a href="/accounts/logout/" style="color:red;">로그아웃</a>
+
+<h2>내 티켓 목록</h2>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>회차</th>
+        <th>타입</th>
+        <th>번호</th>
+        <th>구매 시간</th>
+        <th>삭제</th>
+    </tr>
+
+    {% for t in tickets %}
+    <tr>
+        <td>{{ t.round.round }} 회차</td>
+        <td>{{ t.type }}</td>
+        <td>{{ t.n1 }}, {{ t.n2 }}, {{ t.n3 }}, {{ t.n4 }}, {{ t.n5 }}, {{ t.n6 }}</td>
+        <td>{{ t.bought_at }}</td>
+        <td>
+            <form action="/tickets/delete/{{ t.id }}/" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="color:red;">삭제</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/tickets/buy/manual/">수동 구매하기</a>
+<br>
+<a href="/tickets/buy/auto/">자동 구매하기</a>
+
+{% endblock %}

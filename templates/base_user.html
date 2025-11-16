@@ -1,0 +1,78 @@
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로또 서비스</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* 사용자 네비게이션 바 */
+        .navbar {
+            background: #4a90e2;
+            padding: 14px 20px;
+            color: white;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 15px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-right {
+            margin-left: auto;
+        }
+
+        /* 메인 컨테이너 */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 사용자 네비게이션 바 -->
+    <div class="navbar">
+        <a href="/tickets/buy/manual/">수동 구매</a>
+        <a href="/tickets/buy/auto/">자동 구매</a>
+        <a href="/tickets/mine/">내 티켓</a>
+        <a href="/tickets/result/">당첨 확인</a>
+
+        <div class="navbar-right">
+            <a href="/accounts/logout/" style="color:#ffe3e3;">로그아웃</a>
+        </div>
+    </div>
+
+    <!-- 페이지별 내용이 들어갈 부분 -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
